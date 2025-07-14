@@ -8,9 +8,9 @@ pipeline {
 
   environment {
     GIT_USER_NAME = "Narasimha-Potturi"
-    GIT_REPO_NAME = "Jenkins-Zero-To-Hero"
-    GIT_BRANCH = "main"
-    GIT_EMAIL = "xyz2000@gmail.com"
+    GIT_REPO_NAME = "Java_CI-CD_Project"
+    GIT_BRANCH = "test"
+    GIT_EMAIL = "bharavi2000@gmail.com"
     GIT_NAME = "Narasimha Potturi"
     DEPLOYMENT_FILE = "CD/deployment.yml"
   }
@@ -19,7 +19,7 @@ pipeline {
     stage('Checkout') {
       steps {
         cleanWs()
-        git branch: 'main', url: 'https://github.com/Narasimha-Potturi/Jenkins-Zero-To-Hero.git'
+        //git branch: 'test', url: 'https://github.com/Narasimha-Potturi/Java_CI-CD_Project.git'
       }
     }
 
