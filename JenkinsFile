@@ -56,7 +56,15 @@ pipeline {
         }
         steps {
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
-                sh './deploy.sh'
+                sh '''
+                    echo "===== DEBUG: Permissions BEFORE chmod ====="
+                    ls -l ./deploy.sh || echo "deploy.sh not found"
+                    chmod +x ./deploy.sh
+                    echo "===== DEBUG: Permissions AFTER chmod ====="
+                    ls -l ./deploy.sh
+                    echo "===== INFO: Executing deploy.sh ====="
+                    ./deploy.sh
+                 '''
             }
         }
     }
