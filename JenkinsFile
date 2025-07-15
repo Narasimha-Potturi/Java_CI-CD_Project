@@ -57,13 +57,16 @@ pipeline {
         steps {
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
                 sh '''
-                    echo "===== DEBUG: Permissions BEFORE chmod ====="
-                    ls -l ./deploy.sh || echo "deploy.sh not found"
-                    chmod +x ./deploy.sh
-                    echo "===== DEBUG: Permissions AFTER chmod ====="
-                    ls -l ./deploy.sh
-                    echo "===== INFO: Executing deploy.sh ====="
-                    ./deploy.sh
+                    git config user.email "${GIT_EMAIL}"
+                    git config user.name "${GIT_NAME}"
+                    BUILD_NUMBER=${BUILD_NUMBER}
+                    // Debug information
+                    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" CD/deployment.yml
+                    // verify the working directory
+                    pwd
+                    git add CD/deployment.yml
+                    git commit -m "Updated Deployment image to version ${BUILD_NUMBER}"
+                    git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:${GIT_BRANCH}
                  '''
             }
         }
