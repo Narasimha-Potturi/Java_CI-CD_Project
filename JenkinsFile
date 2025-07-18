@@ -61,7 +61,7 @@ pipeline {
                     git config user.name "${GIT_NAME}"
                     BUILD_NUMBER=${BUILD_NUMBER}
                     // Debug information
-                    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" CD/deployment.yml
+                    sed -i 's/image: .*/image: "$${BUILD_NUMBER}"/' CD/deployment.yaml
                     // verify the working directory
                     pwd
                     git add CD/deployment.yml
